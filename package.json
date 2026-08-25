@@ -1,0 +1,22 @@
+{
+  "name": "emanuel-lopez-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@mdi/font": "7.4.47",
+    "nuxt": "3.21.11",
+    "vuetify": "3.13.2"
+  },
+  "devDependencies": {
+    "sass": "1.93.2",
+    "vite-plugin-vuetify": "2.1.3"
+  }
+}
