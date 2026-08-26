@@ -30,9 +30,3 @@ npm run build     # compilación de producción
 npm run generate  # versión estática
 npm run preview   # previsualiza la compilación
 ```
-
-## Publicar en GitHub
-
-Antes del primer commit, revisa los enlaces y textos personales. La carpeta `.tools` está excluida del repositorio y solo contiene utilidades locales usadas durante la creación.
-
-Cuando conozcas la URL definitiva, copia `.env.example` como `.env` y cambia `NUXT_PUBLIC_SITE_URL`. Así la tarjeta social usará una dirección absoluta correcta.
