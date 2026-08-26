@@ -65,21 +65,23 @@ function closeDrawer() {
           {{ item.label }}
         </a>
       </nav>
-      <VBtnToggle
-        v-model="language"
-        class="language-toggle language-toggle--drawer"
-        mandatory
-        density="compact"
-        variant="outlined"
-        divided
-        :aria-label="t('header.languageLabel')"
-      >
-        <VBtn value="es" size="small">ES</VBtn>
-        <VBtn value="en" size="small">EN</VBtn>
-      </VBtnToggle>
-      <VBtn class="email-copy-btn" color="primary" prepend-icon="mdi-content-copy" block @click="copyEmail">
-        {{ t('common.copyEmail') }}
-      </VBtn>
+      <div class="drawer-actions">
+        <VBtnToggle
+          v-model="language"
+          class="language-toggle language-toggle--drawer"
+          mandatory
+          density="compact"
+          variant="outlined"
+          divided
+          :aria-label="t('header.languageLabel')"
+        >
+          <VBtn value="es" size="small">ES</VBtn>
+          <VBtn value="en" size="small">EN</VBtn>
+        </VBtnToggle>
+        <VBtn class="email-copy-btn" color="primary" prepend-icon="mdi-content-copy" block @click="copyEmail">
+          {{ t('common.copyEmail') }}
+        </VBtn>
+      </div>
     </div>
   </VNavigationDrawer>
 </template>
