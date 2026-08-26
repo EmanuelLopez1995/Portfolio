@@ -5,7 +5,22 @@ const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  modules: ['@nuxtjs/i18n'],
   css: ['@mdi/font/css/materialdesignicons.css', '~/assets/styles/main.scss'],
+  i18n: {
+    strategy: 'no_prefix',
+    defaultLocale: 'es',
+    langDir: 'locales',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'portfolio_locale',
+      redirectOn: 'root'
+    },
+    locales: [
+      { code: 'es', name: 'ES', file: 'es.ts' },
+      { code: 'en', name: 'EN', file: 'en.ts' }
+    ]
+  },
   app: {
     head: {
       htmlAttrs: { lang: 'es' },

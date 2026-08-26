@@ -1,6 +1,19 @@
 <script setup lang="ts">
 const { contactLinks, experiences, services, skillGroups, stats } = usePortfolio()
 const { copied, copyEmail } = useEmailContact()
+const { locale, t } = useI18n()
+
+useHead(() => ({
+  htmlAttrs: { lang: locale.value },
+  title: t('seo.title'),
+  meta: [
+    { name: 'description', content: t('seo.description') },
+    { property: 'og:title', content: t('seo.title') },
+    { property: 'og:description', content: t('seo.ogDescription') },
+    { name: 'twitter:title', content: t('seo.title') },
+    { name: 'twitter:description', content: t('seo.ogDescription') }
+  ]
+}))
 
 function handleContactClick(event: MouseEvent, href: string) {
   if (href.startsWith('mailto:')) {
@@ -17,44 +30,42 @@ function handleContactClick(event: MouseEvent, href: string) {
         <div class="hero-copy">
           <div class="availability-pill">
             <span class="pulse-dot" />
-            Valencia · Disponible para conectar
+            {{ t('hero.available') }}
           </div>
-          <p class="hero-kicker">Full Stack Developer · Integraciones · IA aplicada</p>
+          <p class="hero-kicker">{{ t('hero.kicker') }}</p>
           <h1>
-            Tecnología clara
-            <span>para ideas</span>
-            que quieren crecer.
+            {{ t('hero.titleStart') }}
+            <span>{{ t('hero.titleHighlight') }}</span>
+            {{ t('hero.titleEnd') }}
           </h1>
-          <p class="hero-lead">
-            Soy Emanuel. Me gusta entender problemas complejos, conectar personas y sistemas, y convertir todo eso en productos útiles. Trabajo con web, integraciones e IA sin perder de vista lo más importante: para quién estamos construyendo.
-          </p>
+          <p class="hero-lead">{{ t('hero.lead') }}</p>
           <div class="hero-actions">
             <VBtn color="primary" size="large" href="#servicios" append-icon="mdi-arrow-down">
-              Descubrir cómo aporto
+              {{ t('hero.cta') }}
             </VBtn>
             <VBtn class="email-copy-btn" variant="text" size="large" append-icon="mdi-content-copy" @click="copyEmail">
-              Copiar mi email
+              {{ t('common.copyEmail') }}
             </VBtn>
           </div>
         </div>
 
-        <div class="hero-visual" aria-label="Retrato de Emanuel López">
+        <div class="hero-visual" :aria-label="t('hero.aria')">
           <div class="visual-grid" aria-hidden="true" />
           <div class="photo-orbit" aria-hidden="true" />
           <div class="photo-frame">
-            <img src="/images/emanuel-lopez.webp" alt="Emanuel López, desarrollador Full Stack" width="520" height="520">
+            <img src="/images/emanuel-lopez-2026.png" :alt="t('hero.imageAlt')" width="520" height="520">
           </div>
           <div class="floating-card floating-card--top">
             <VIcon icon="mdi-creation-outline" size="25" />
-            <div><small>Nuevas posibilidades</small><strong>IA + MCP</strong></div>
+            <div><small>{{ t('hero.floatingTopSmall') }}</small><strong>{{ t('hero.floatingTopStrong') }}</strong></div>
           </div>
           <div class="floating-card floating-card--bottom">
             <VIcon icon="mdi-code-braces" size="25" />
-            <div><small>Backend</small><strong>.NET / C#</strong></div>
+            <div><small>{{ t('hero.floatingBackendSmall') }}</small><strong>{{ t('hero.floatingBackendStrong') }}</strong></div>
           </div>
           <div class="floating-card floating-card--vue">
             <VIcon icon="mdi-vuejs" size="25" />
-            <div><small>Mi fuerte</small><strong>Vue.js</strong></div>
+            <div><small>{{ t('hero.floatingVueSmall') }}</small><strong>{{ t('hero.floatingVueStrong') }}</strong></div>
           </div>
         </div>
       </VContainer>
@@ -66,7 +77,7 @@ function handleContactClick(event: MouseEvent, href: string) {
         </div>
         <div class="stat-note">
           <VIcon icon="mdi-map-marker-outline" size="20" />
-          <span>Valencia, España</span>
+          <span>{{ t('common.location') }}</span>
         </div>
       </VContainer>
     </section>
@@ -75,24 +86,20 @@ function handleContactClick(event: MouseEvent, href: string) {
       <VContainer>
         <div class="about-grid">
           <SectionHeading
-            eyebrow="Sobre mí"
-            title="Curioso por naturaleza. Práctico por experiencia."
+            :eyebrow="t('about.eyebrow')"
+            :title="t('about.title')"
           />
           <div class="about-copy">
-            <p class="about-lead">
-              No me interesa programar por programar. Me motiva descubrir qué está frenando a una persona o a un equipo y diseñar una forma más simple de avanzar.
-            </p>
-            <p>
-              Soy cercano, curioso y resolutivo. Puedo moverme entre una interfaz en Vue, una API, una consulta SQL, una herramienta de IA y una conversación con cliente sin perder de vista el objetivo. Aprendo rápido, pregunto mucho y disfruto haciendo equipo.
-            </p>
+            <p class="about-lead">{{ t('about.lead') }}</p>
+            <p>{{ t('about.body') }}</p>
             <div class="about-details">
               <div>
                 <VIcon icon="mdi-school-outline" color="primary" />
-                <span><strong>Técnico Superior</strong> en Análisis de Sistemas</span>
+                <span><strong>{{ t('about.educationStrong') }}</strong> {{ t('about.educationText') }}</span>
               </div>
               <div>
                 <VIcon icon="mdi-translate" color="primary" />
-                <span><strong>Inglés B2</strong> para colaborar en equipos globales</span>
+                <span><strong>{{ t('about.englishStrong') }}</strong> {{ t('about.englishText') }}</span>
               </div>
             </div>
           </div>
@@ -103,9 +110,9 @@ function handleContactClick(event: MouseEvent, href: string) {
     <section id="servicios" class="services-section section-space">
       <VContainer>
         <SectionHeading
-          eyebrow="Lo que hago"
-          title="Más que escribir código, ayudo a que las cosas avancen."
-          text="Puedo sumarme a una idea, un producto en marcha o un proceso que necesita conectarse mejor."
+          :eyebrow="t('services.eyebrow')"
+          :title="t('services.title')"
+          :text="t('services.text')"
         />
         <div class="services-grid">
           <article v-for="service in services" :key="service.number" class="service-card">
@@ -124,27 +131,23 @@ function handleContactClick(event: MouseEvent, href: string) {
       <VContainer>
         <div class="ai-panel">
           <div class="ai-copy">
-            <p class="eyebrow">IA aplicada · Sin humo</p>
-            <h2>La IA no reemplaza el criterio. Lo amplifica.</h2>
-            <p>
-              Estoy incorporando Codex, Claude y arquitecturas basadas en MCP a mi forma de trabajar: para explorar soluciones, acelerar desarrollo, conectar herramientas y diseñar automatizaciones que tengan un impacto concreto.
-            </p>
-            <p>
-              Mi foco no es agregar un chat porque está de moda, sino encontrar dónde un modelo puede ahorrar tiempo, reducir fricción o habilitar algo que antes no era viable.
-            </p>
+            <p class="eyebrow">{{ t('ai.eyebrow') }}</p>
+            <h2>{{ t('ai.title') }}</h2>
+            <p>{{ t('ai.bodyOne') }}</p>
+            <p>{{ t('ai.bodyTwo') }}</p>
           </div>
           <div class="ai-capabilities">
             <div>
               <VIcon icon="mdi-code-tags" />
-              <span><strong>Desarrollo aumentado</strong>Codex y Claude para explorar, refactorizar, probar y documentar.</span>
+              <span><strong>{{ t('ai.capabilityOneStrong') }}</strong>{{ t('ai.capabilityOneText') }}</span>
             </div>
             <div>
               <VIcon icon="mdi-transit-connection-variant" />
-              <span><strong>MCP & herramientas</strong>Modelos conectados con APIs, datos y sistemas empresariales.</span>
+              <span><strong>{{ t('ai.capabilityTwoStrong') }}</strong>{{ t('ai.capabilityTwoText') }}</span>
             </div>
             <div>
               <VIcon icon="mdi-robot-happy-outline" />
-              <span><strong>Agentes & automatización</strong>Flujos que combinan IA, reglas de negocio y supervisión humana.</span>
+              <span><strong>{{ t('ai.capabilityThreeStrong') }}</strong>{{ t('ai.capabilityThreeText') }}</span>
             </div>
           </div>
         </div>
@@ -154,9 +157,9 @@ function handleContactClick(event: MouseEvent, href: string) {
     <section id="experiencia" class="experience-section section-space">
       <VContainer>
         <SectionHeading
-          eyebrow="Cosas que ya resolví"
-          title="El recorrido importa por lo que aprendí haciendo."
-          text="No es una lista de puestos. Son situaciones reales en las que conecté tecnología, personas y operación para generar resultados."
+          :eyebrow="t('experience.eyebrow')"
+          :title="t('experience.title')"
+          :text="t('experience.text')"
         />
         <div class="experience-list">
           <ExperienceCard
@@ -172,9 +175,9 @@ function handleContactClick(event: MouseEvent, href: string) {
     <section id="stack" class="stack-section section-space">
       <VContainer>
         <SectionHeading
-          eyebrow="Mi caja de herramientas"
-          title="Tecnología al servicio de la idea."
-          text="Desde Vue y .NET hasta IA, cloud y sistemas industriales: elijo cada herramienta por lo que aporta al resultado."
+          :eyebrow="t('stack.eyebrow')"
+          :title="t('stack.title')"
+          :text="t('stack.text')"
         />
         <div class="skills-grid">
           <VCard v-for="group in skillGroups" :key="group.title" class="skill-card" variant="flat">
@@ -193,13 +196,11 @@ function handleContactClick(event: MouseEvent, href: string) {
       <VContainer>
         <div class="contact-panel">
           <div class="contact-copy">
-            <p class="eyebrow">Contacto</p>
-            <h2>¿Tienes una idea o un problema interesante?</h2>
-            <p>
-              Si estás creando un producto, conectando sistemas o explorando cómo aplicar IA de forma útil, me encantará conocerte y pensar juntos.
-            </p>
+            <p class="eyebrow">{{ t('contact.eyebrow') }}</p>
+            <h2>{{ t('contact.title') }}</h2>
+            <p>{{ t('contact.text') }}</p>
             <VBtn class="email-copy-btn" color="primary" size="x-large" append-icon="mdi-content-copy" @click="copyEmail">
-              Copiar email
+              {{ t('common.copyEmail') }}
             </VBtn>
           </div>
           <div class="contact-links">
@@ -222,14 +223,14 @@ function handleContactClick(event: MouseEvent, href: string) {
 
     <footer class="site-footer">
       <VContainer class="footer-inner">
-        <p>© {{ new Date().getFullYear() }} Emanuel López</p>
+        <p>© {{ new Date().getFullYear() }} Emanuel Lopez</p>
       </VContainer>
     </footer>
 
     <VSnackbar v-model="copied" color="surface" location="bottom" :timeout="2600">
       <div class="copy-confirmation">
         <VIcon icon="mdi-check-circle" color="primary" />
-        <span>Email copiado: <strong>emanicolopez@gmail.com</strong></span>
+        <span>{{ t('common.copiedEmail') }} <strong>emanicolopez@gmail.com</strong></span>
       </div>
     </VSnackbar>
   </div>
