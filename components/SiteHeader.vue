@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const drawerOpen = ref(false)
 const { navigation } = usePortfolio()
-const { copyEmail } = useEmailContact()
 const { locale, setLocale, t } = useI18n()
+const emailHref = 'mailto:emanicolopez@gmail.com'
 
 const language = computed({
   get: () => locale.value,
@@ -39,10 +39,10 @@ function closeDrawer() {
       <VBtn
         class="desktop-cta email-copy-btn"
         color="primary"
-        append-icon="mdi-content-copy"
-        @click="copyEmail"
+        append-icon="mdi-email-fast-outline"
+        :href="emailHref"
       >
-        {{ t('common.copyEmail') }}
+        {{ t('common.sendEmail') }}
       </VBtn>
 
       <VBtn
@@ -78,8 +78,8 @@ function closeDrawer() {
           <VBtn value="es" size="small">ES</VBtn>
           <VBtn value="en" size="small">EN</VBtn>
         </VBtnToggle>
-        <VBtn class="email-copy-btn" color="primary" prepend-icon="mdi-content-copy" block @click="copyEmail">
-          {{ t('common.copyEmail') }}
+        <VBtn class="email-copy-btn" color="primary" prepend-icon="mdi-email-fast-outline" block :href="emailHref">
+          {{ t('common.sendEmail') }}
         </VBtn>
       </div>
     </div>

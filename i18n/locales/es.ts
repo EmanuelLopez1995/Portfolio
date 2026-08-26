@@ -6,6 +6,7 @@ export default {
   },
   common: {
     copyEmail: 'Copiar email',
+    sendEmail: 'Enviar email',
     copiedEmail: 'Email copiado:',
     location: 'Valencia, Espana'
   },

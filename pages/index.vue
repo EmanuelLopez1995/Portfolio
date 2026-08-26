@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const { contactLinks, experiences, services, skillGroups, stats } = usePortfolio()
-const { copied, copyEmail } = useEmailContact()
 const { locale, t } = useI18n()
 
 useHead(() => ({
@@ -15,12 +14,7 @@ useHead(() => ({
   ]
 }))
 
-function handleContactClick(event: MouseEvent, href: string) {
-  if (href.startsWith('mailto:')) {
-    event.preventDefault()
-    copyEmail()
-  }
-}
+const emailHref = 'mailto:emanicolopez@gmail.com'
 </script>
 
 <template>
@@ -43,8 +37,8 @@ function handleContactClick(event: MouseEvent, href: string) {
             <VBtn color="primary" size="large" href="#servicios" append-icon="mdi-arrow-down">
               {{ t('hero.cta') }}
             </VBtn>
-            <VBtn class="email-copy-btn" variant="text" size="large" append-icon="mdi-content-copy" @click="copyEmail">
-              {{ t('common.copyEmail') }}
+            <VBtn class="email-copy-btn" variant="text" size="large" append-icon="mdi-email-fast-outline" :href="emailHref">
+              {{ t('common.sendEmail') }}
             </VBtn>
           </div>
         </div>
@@ -199,8 +193,8 @@ function handleContactClick(event: MouseEvent, href: string) {
             <p class="eyebrow">{{ t('contact.eyebrow') }}</p>
             <h2>{{ t('contact.title') }}</h2>
             <p>{{ t('contact.text') }}</p>
-            <VBtn class="email-copy-btn" color="primary" size="x-large" append-icon="mdi-content-copy" @click="copyEmail">
-              {{ t('common.copyEmail') }}
+            <VBtn class="email-copy-btn" color="primary" size="x-large" append-icon="mdi-email-fast-outline" :href="emailHref">
+              {{ t('common.sendEmail') }}
             </VBtn>
           </div>
           <div class="contact-links">
@@ -210,11 +204,10 @@ function handleContactClick(event: MouseEvent, href: string) {
               :href="link.href"
               :target="link.href.startsWith('http') ? '_blank' : undefined"
               :rel="link.href.startsWith('http') ? 'noreferrer' : undefined"
-              @click="handleContactClick($event, link.href)"
             >
               <VIcon :icon="link.icon" size="23" />
               <span><small>{{ link.label }}</small>{{ link.value }}</span>
-              <VIcon :icon="link.href.startsWith('mailto:') ? 'mdi-content-copy' : 'mdi-arrow-up-right'" size="20" />
+              <VIcon :icon="link.href.startsWith('mailto:') ? 'mdi-email-fast-outline' : 'mdi-arrow-up-right'" size="20" />
             </a>
           </div>
         </div>
@@ -227,11 +220,5 @@ function handleContactClick(event: MouseEvent, href: string) {
       </VContainer>
     </footer>
 
-    <VSnackbar v-model="copied" color="surface" location="bottom" :timeout="2600">
-      <div class="copy-confirmation">
-        <VIcon icon="mdi-check-circle" color="primary" />
-        <span>{{ t('common.copiedEmail') }} <strong>emanicolopez@gmail.com</strong></span>
-      </div>
-    </VSnackbar>
   </div>
 </template>
